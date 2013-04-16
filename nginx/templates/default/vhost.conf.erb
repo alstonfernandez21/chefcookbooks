@@ -1,10 +1,22 @@
 server {
     listen 80;
+    <% if @params[:ssl_on] == "true" %>
+    listen 443;<% end %>
     client_max_body_size 50M;
     server_name <%= @params[:host] %>  <% unless @params[:aliases].empty? %><% @params[:aliases].each do |a| %><%= a %> <% end %><% end %>;
 
     access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>.access.log main;
     error_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>.error.log;
+
+    <% if @params[:ssl_on] == "true" %>
+    ssl on;
+    ssl_certificate /data/ssl/<%= @params[:host] %>.crt;
+    ssl_certificate_key /data/ssl/<%= @params[:host] %>.key;
+    ssl_session_timeout  5m;
+    ssl_protocols  SSLv2 SSLv3 TLSv1;
+    ssl_ciphers  ALL:!ADH:!EXPORT56:RC4+RSA:+HIGH:+MEDIUM:+LOW:+SSLv2:+EXP;
+    ssl_prefer_server_ciphers   on;
+    <% end %>
 
     location / {
 

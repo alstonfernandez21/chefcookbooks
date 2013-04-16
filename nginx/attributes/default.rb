@@ -2,6 +2,7 @@ default['nginx']['package_name'] = "nginx"
 default['nginx']['dir'] = "/etc/nginx"
 default['nginx']['log_dir'] = "/data/log"
 default['nginx']['data_dir'] = "/data/web"
+default['nginx']['ssl_dir'] = "/data/ssl"
 
 default['nginx']['pid'] = "/var/run/nginx.pid"
 default['nginx']['user'] = "nginx"
