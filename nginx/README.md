@@ -2,8 +2,7 @@ nginx Cookbook
 ==============
 TODO: Enter the cookbook description here.
 
-e.g.
-This cookbook makes your favorite breakfast sandwhich.
+This Nginx Cookbook is simple for those who need Nginx installed through yum on CentOS 5 or 6. It has ability to add simple vhosts  with SSL certs.
 
 Requirements
 ------------
@@ -11,7 +10,15 @@ TODO: List your cookbook requirements. Be sure to include any requirements this 
 
 e.g.
 #### packages
-- `toaster` - nginx needs toaster to brown your bagel.
+You need to have the following folders where Chef will install your vhost
+folders by name under /data/web/{vhost}
+
+Log Files under /data/log/{vhost}.error.log | access.log  
+
+SSL Certs under /data/ssl/{vhost}.key | .crt
+
+Run
+mkdir -p /data/{web,log,ssl}
 
 Attributes
 ----------
@@ -19,20 +26,6 @@ TODO: List you cookbook attributes here.
 
 e.g.
 #### nginx::default
-<table>
-  <tr>
-    <th>Key</th>
-    <th>Type</th>
-    <th>Description</th>
-    <th>Default</th>
-  </tr>
-  <tr>
-    <td><tt>['nginx']['bacon']</tt></td>
-    <td>Boolean</td>
-    <td>whether to include bacon</td>
-    <td><tt>true</tt></td>
-  </tr>
-</table>
 
 Usage
 -----
@@ -41,28 +34,40 @@ TODO: Write usage instructions for each cookbook.
 
 e.g.
 Just include `nginx` in your node's `run_list`:
+#  Install Nginx
+knife node run_list add nodename "recipe[nginx]"
+#  Use the Vhosts Feature
+knife node run_list add nodename "recipe[nginx::vhosts]"
 
 ```json
 {
   "name":"my_node",
   "run_list": [
-    "recipe[nginx]"
+    "recipe[nginx]",
+    "recipe[nginx::vhosts]"
   ]
 }
 ```
 
+nginx_vhost "domain.com" do
+ host "robusttechsolutions.com"
+ aliases ["www.domain.com", "admin.domain.com"]
+ ssl_on "true"
+ ssl_key  "-----BEGIN RSA PRIVATE KEY-----
+		  -----END RSA PRIVATE KEY-----"
+ ssl_cert "-----BEGIN CERTIFICATE-----
+		  -----END CERTIFICATE-----"
+end
+
+nginx_vhost "domain.com" do
+ host "domain.com"
+ aliases []
+end
+
 Contributing
 ------------
-TODO: (optional) If this is a public cookbook, detail the process for contributing. If this is a private cookbook, remove this section.
-
-e.g.
-1. Fork the repository on Github
-2. Create a named feature branch (like `add_component_x`)
-3. Write you change
-4. Write tests for your change (if applicable)
-5. Run the tests, ensuring they all pass
-6. Submit a Pull Request using Github
+1) Add support for PHP, Python and Rails applications
 
 License and Authors
 -------------------
-Authors: TODO: List authors
+Authors: Alston. J Fernandez
