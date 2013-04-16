@@ -1,0 +1,15 @@
+server {
+    listen 80;
+    client_max_body_size 50M;
+    server_name <%= @params[:host] %>  <% unless @params[:aliases].empty? %><% @params[:aliases].each do |a| %><%= a %> <% end %><% end %>;
+
+    access_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>.access.log main;
+    error_log <%= node['nginx']['log_dir'] %>/<%= @params[:name] %>.error.log;
+
+    location / {
+
+        root   /data/web/<%= @params[:name] %>;
+        index  index.html index.htm index.php;
+    }
+}
+
