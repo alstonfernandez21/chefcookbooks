@@ -47,22 +47,26 @@ knife node run_list add nodename "recipe[nginx::vhosts]"
     "recipe[nginx::vhosts]"
   ]
 }
-```
+
+# vim vhosts.rb
 
 nginx_vhost "domain.com" do
  host "robusttechsolutions.com"
  aliases ["www.domain.com", "admin.domain.com"]
  ssl_on "true"
  ssl_key  "-----BEGIN RSA PRIVATE KEY-----
-		  -----END RSA PRIVATE KEY-----"
+                  -----END RSA PRIVATE KEY-----"
  ssl_cert "-----BEGIN CERTIFICATE-----
-		  -----END CERTIFICATE-----"
+                  -----END CERTIFICATE-----"
 end
 
 nginx_vhost "domain.com" do
  host "domain.com"
  aliases []
 end
+
+```
+
 
 Contributing
 ------------
