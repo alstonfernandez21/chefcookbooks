@@ -23,5 +23,19 @@ server {
         root   /data/web/<%= @params[:name] %>;
         index  index.html index.htm index.php;
     }
+
+    <% if @params[:technology] == "php" %>
+    location ~ \.php {
+        root            html;
+        fastcgi_pass    127.0.0.1:9000;
+        fastcgi_index   index.php;
+        fastcgi_param   SCRIPT_FILENAME  /data/web/<%= @params[:name] %>$fastcgi_script_name;
+        include         fastcgi_params;
+    }
+    <% end %>
+	
+
+
+
 }
 

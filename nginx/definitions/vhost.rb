@@ -23,7 +23,7 @@ define :nginx_vhost, :host => nil do
     end
   end
 
-
+  
 
   template "#{node['nginx']['dir']}/conf.d/#{host_name}.conf" do
 	source "vhost.conf.erb"
@@ -44,5 +44,10 @@ define :nginx_vhost, :host => nil do
 	mode "0765"
   	action :create
   end 
+
+
+  if @params[:technology] == "php"	
+	include_recipe "php53fcgi::default"
+  end
 
 end

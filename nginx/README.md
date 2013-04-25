@@ -51,7 +51,7 @@ knife node run_list add nodename "recipe[nginx::vhosts]"
 # vim vhosts.rb
 
 nginx_vhost "domain.com" do
- host "robusttechsolutions.com"
+ host "domain.com"
  aliases ["www.domain.com", "admin.domain.com"]
  ssl_on "true"
  ssl_key  "-----BEGIN RSA PRIVATE KEY-----
@@ -65,12 +65,19 @@ nginx_vhost "domain.com" do
  aliases []
 end
 
+Installing PHP53 with spawn-fcgi
+
+nginx_vhost "domain.com" dp
+ host "domain.com"
+ technology "php"
+end
+
 ```
 
 
 Contributing
 ------------
-1) Add support for PHP, Python and Rails applications
+1) Add support for Python and Rails applications
 
 License and Authors
 -------------------
