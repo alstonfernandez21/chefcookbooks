@@ -1,0 +1,19 @@
+name "mysql"
+description "mysql client and server install"
+run_list [
+        "recipe[mysql::client]",
+	"recipe[mysql::server]",
+        ]
+override_attributes "mysql" => {
+			"tunable" => { 	
+				"server_id" => "1",
+				"log_bin" => "mysql-bin.log",
+				"log_bin_index" => "master-log-bin.index",
+				"binlog_do_db" => ["rtsadmin", "accudoc", ],
+				"replicate_do_dn" => ["rtadmin", "accudoc", ]
+	
+			},
+				 "server_root_password" => "todlers21",
+                                 "data_dir" => "/data/mysql",
+                                 "server_repl_password" => "admTEAM221"
+}

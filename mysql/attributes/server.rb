@@ -22,9 +22,6 @@ default['mysql']['port']                       = 3306
 default['mysql']['nice']                       = 0
 
 
-default['mysql']['tunable']['server_id']	      = nil
-default['mysql']['tunable']['replicate_do_db']	      = nil
-default['mysql']['tunable']['binlog_do_db']	      = nil
 
 case node["platform_family"]
 when "debian"
@@ -189,13 +186,16 @@ default['mysql']['tunable']['skip-name-resolve']                   = false
 
 default['mysql']['tunable']['slave_compressed_protocol']       = 0
 
-default['mysql']['tunable']['server_id']                       = nil
 default['mysql']['tunable']['log_bin']                         = nil
 default['mysql']['tunable']['log_bin_trust_function_creators'] = false
 default['mysql']['tunable']['log_bin_index']		       = nil
 
-default['mysql']['relay_log']                       = nil
-default['mysql']['relay_log_index']                 = nil
+default['mysql']['tunable']['server_id']              = nil
+default['mysql']['tunable']['replicate_do_db']        = nil
+default['mysql']['tunable']['binlog_do_db']           = nil
+
+default['mysql']['tunable']['relay_log']                       = nil
+default['mysql']['tunable']['relay_log_index']                 = nil
 default['mysql']['tunable']['log_slave_updates']               = false
 
 default['mysql']['tunable']['sync_binlog']                     = 0
